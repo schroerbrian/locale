@@ -3,7 +3,6 @@ class CreatePosts < ActiveRecord::Migration
     create_table :posts do |t|
       t.text :body, limit: 700
       t.integer :user_id
-
       t.timestamps
     end
   end
