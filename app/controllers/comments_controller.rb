@@ -5,19 +5,19 @@ class CommentsController < ApplicationController
 
 	def index
 		@comments = Comment.all
-		respond_to do |format|
-			format.html # show.html.erb
-		  format.json { render json: @comments.to_json(include: :comments) }
-		end
+		render json: @comments.to_json
 	end 
 
 	def create
-		respond_with Comment.create(comment_params)
+		p = params[:post_id]
+		c = params[:comment]
+		c.merge!(:post_id=>p)
+		respond_with Comment.create(comment_params), :location => posts_path
 	end 
 
 	def show
 		@comment = Comment.find(params[:id])
-		render json: @comment.to_json(include: :comments) 
+		render json: @comment.to_json 
 	end 
 
 	def edit
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
 	private
 
   def comment_params
-    params.require(:comment).permit(:text)
+    params.require(:comment).permit(:text, :post_id)
   end
 
 end

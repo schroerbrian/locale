@@ -12,7 +12,9 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :posts, :comments 
+  has_many :posts
+  has_many :comments
+
   validates :email, uniqueness: { case_sensitive: false }
 
   def self.from_omniauth(auth)

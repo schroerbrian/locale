@@ -12,8 +12,8 @@
 #
 
 class Comment < ActiveRecord::Base
-  belongs_to :post 
-  belongs_to :user  
+  belongs_to :post, inverse_of: :comments
+  belongs_to :user
 
   validates_presence_of :text, :post
 end
